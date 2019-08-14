@@ -9,6 +9,14 @@ var auth_token = fs.readFileSync("auth.txt", "utf8").trim();
 var app = express();
 app.enable('trust proxy', '127.0.0.1');
 
+app.use((req, res, next)=>{
+	console.log(`[${new Date().toLocaleString()}]`, '📥', req.connection.remoteAddress, `"${req.method} ${req.url} HTTP/${req.httpVersion}"`, JSON.stringify(req.headers));
+	res.on("finish", () => {
+		console.log(`[${new Date().toLocaleString()}]`, '📤', res.statusCode, res.statusMessage, JSON.stringify(res.getHeaders()));
+	});
+	next();
+});
+
 app.post("/upload", (req, res, next) => {
 	if (req.headers.authentication != auth_token) return res.status(403).send("Unauthorized");
 	var form = new formidable.IncomingForm();
@@ -38,7 +46,7 @@ app.get("*", function(req, res){
 		res.sendFile(filenamepath, {root: process.cwd()});
 	} catch(error) {
 		res.status(404).send(error.message);
-		console.warn(error.stack);
+		//console.warn(error.stack);
 	}
 });
 
