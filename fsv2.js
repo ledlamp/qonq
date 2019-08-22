@@ -5,7 +5,7 @@ var formidable = require("formidable");
 var path = require("path");
 var fs = require("fs");
 
-var auth_token = fs.readFileSync("auth.txt", "utf8").trim();
+const AUTH_TOKEN = fs.readFileSync("auth.txt", "utf8").trim();
 var app = express();
 app.enable('trust proxy', '127.0.0.1');
 
@@ -18,7 +18,7 @@ app.use((req, res, next)=>{
 });
 
 app.post("/upload", (req, res, next) => {
-	if (req.headers.authentication != auth_token) return res.status(403).send("Unauthorized");
+	if (req.headers.authentication != AUTH_TOKEN) return res.status(403).send("Unauthorized");
 	var form = new formidable.IncomingForm();
 	form.parse(req, function(err, fields, files) {
 		if (err) return next(err);
