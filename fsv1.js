@@ -1,7 +1,6 @@
 var basehostnames = [
     "screenshots.fookat.tk",
-    "ss.fookat.tk",
-    "qonq.ga"
+    "ss.fookat.tk"
 ];
 var filedir = "public";
 
