@@ -43,10 +43,14 @@ app.get("*", function(req, res){
 		var filecodepath = path.join(FILES_DIR, filecode);
 		var filename = fs.readdirSync(filecodepath)[0];
 		var filenamepath = path.join(filecodepath, filename);
-		res.sendFile(filenamepath, {root: process.cwd()});
+		res.sendFile(filenamepath, {
+			root: process.cwd(),
+			headers: {
+				"Content-Disposition": `filename=${filename}`
+			}
+		});
 	} catch(error) {
-		res.status(404).send(error.message);
-		//console.warn(error.stack);
+		res.status(error.code == "ENOENT" ? 404 : 500).send(error.message);
 	}
 });
 
