@@ -32,7 +32,7 @@ app.post("/upload", (req, res, next) => {
 		} catch(e) {
 			return next(e);
 		}
-		res.send(`${req.protocol}://${filecode}.${req.hostname}`);
+		res.send(`${req.protocol}://${filecode}.${req.headers.host}`);
 	});
 });
 
