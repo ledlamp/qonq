@@ -1,10 +1,9 @@
-const FILES_DIR = "files";
-
 var express = require("express");
 var formidable = require("formidable");
 var path = require("path");
 var fs = require("fs");
 
+const FILES_DIR = "files";
 const AUTH_TOKEN = fs.readFileSync("auth.txt", "utf8").trim();
 var app = express();
 app.enable('trust proxy', '127.0.0.1');
