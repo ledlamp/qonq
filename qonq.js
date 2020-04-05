@@ -60,4 +60,4 @@ app.use(function (error, req, res, next) {
 	res.status(error.code == "ENOENT" ? 404 : console.error(error.stack) || 500).send(error.toString());
 });
 
-app.listen(8568, "127.0.0.1");
+app.listen(process.env.PORT || 8568, process.env.ADDRESS);
