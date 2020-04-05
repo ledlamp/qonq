@@ -5,6 +5,7 @@ Note: Please refrain from using your own file server if you do not have a reliab
 2. `npm ci`
 3. `echo "press random keys on your keyboard here" > auth.txt`
 4. `node qonq.js`, `pm2 start qonq.js`, or run however you like
+
 You can set `PORT` and `ADDRESS` env variables if necessary.
 
 ## ShareX config
