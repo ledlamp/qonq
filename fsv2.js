@@ -38,19 +38,45 @@ app.post("/upload", (req, res, next) => {
 
 app.get("*", function(req, res){
 	try {
-		var filecode = req.hostname.split('.')[0]; // for home page just create file in directory named as the last level of base hostname
-		var filecodepath = path.join(FILES_DIR, filecode);
-		var filename = fs.readdirSync(filecodepath)[0];
-		var filenamepath = path.join(filecodepath, filename);
-		res.sendFile(filenamepath, {
-			root: process.cwd(),
-			headers: {
-				"Content-Disposition": `filename=${filename}`
+		let filecode = req.hostname.split('.')[0]; // for home page just create file in directory named as the last level of base hostname
+		let webroot = path.join(FILES_DIR, filecode);
+		let webrootdirlist = fs.readdirSync(webroot);
+		if (webrootdirlist.length > 1) {
+			// serve like static web server
+			let webpath = path.join(webroot, req.url);
+			if (webpath.length < webroot.length) webpath = webroot; // TODO idk a better way to do this
+			let webfilename = path.basename(req.url);
+			if (fs.statSync(webpath).isDirectory()) {
+				// serve index* file if it exists
+				for (let webfilename of webrootdirlist) {
+					if (webfilename.startsWith("index") && !fs.statSync(webpath).isDirectory())
+						return sendfile(webroot, webfilename, webpath);
+				}
+				// else generate directory listing
+				let webdirlist = fs.readdirSync(webpath);
+				let html = webdirlist.map(fn => `<a href="${fn}">${fn}<a><br>`).join('\n');
+				res.send(html);
+			} else {
+				sendfile(webroot, webfilename, webpath);
 			}
-		});
+		} else if (webrootdirlist.length == 1) {
+			// serve the one file
+			sendfile(webroot, webrootdirlist[0]);
+		} else {
+			// bruh
+			res.sendStatus(204);
+		}
+		function sendfile(webroot, filename) {
+			return res.sendFile(filename, {
+				root: path.join(process.cwd(), webroot),
+				headers: {
+					"Content-Disposition": `filename=${filename}`
+				}
+			});
+		}
 	} catch(error) {
-		res.status(error.code == "ENOENT" ? 404 : 500).send(error.message);
+		res.status(error.code == "ENOENT" ? 404 : console.error(error.stack) || 500).send(error.message);
 	}
 });
 
-app.listen(8568, "localhost");
+app.listen(8568, "127.0.0.1");
