@@ -1,5 +1,6 @@
-files
+files/*
 node_modules
 public
 auth.txt
 *.log
+!.gitkeep
