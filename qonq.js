@@ -19,7 +19,10 @@ app.use((req, res, next)=>{
 
 app.post("/upload", (req, res, next) => {
 	if (req.headers.authentication != AUTH_TOKEN) return res.status(403).send("Unauthorized");
-	var form = new formidable.IncomingForm();
+	var form = new formidable.IncomingForm({
+		maxFileSize: 2**30, // 1 GiB
+		maxFields: 1
+	});
 	form.parse(req, function(err, fields, files) {
 		if (err) return next(err);
 		var file = files.file;
