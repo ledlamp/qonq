@@ -40,7 +40,7 @@ server {
         ssl_certificate_key /etc/letsencrypt/live/qonq.gq/privkey.pem;
         include /etc/letsencrypt/options-ssl-nginx.conf;
         ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
-        client_max_body_size 200M;
+        client_max_body_size 1G;
         location / {
                 proxy_set_header Host $host;
                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
