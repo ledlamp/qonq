@@ -4,3 +4,4 @@ public
 auth.txt
 *.log
 !.gitkeep
+ecosystem.config.js

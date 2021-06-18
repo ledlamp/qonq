@@ -37,7 +37,9 @@ app.post("/upload", (req, res, next) => {
 		} catch(e) {
 			return next(e);
 		}
-		res.send(`${req.protocol}://${filecode}.${process.env.PREFERRED_HOST||req.headers.host}`);
+		let url = `${req.protocol}://${filecode}.${process.env.PREFERRED_HOST||req.headers.host}`;
+		res.send(url);
+		require("./discord-preloader.js")(url);
 	});
 });
 
