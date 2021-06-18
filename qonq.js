@@ -10,7 +10,7 @@ var app = express();
 app.enable('trust proxy', '127.0.0.1');
 
 app.use((req, res, next)=>{
-	console.log(`[${new Date().toLocaleString()}]`, '📥', req.connection.remoteAddress, `"${req.method} ${req.url} HTTP/${req.httpVersion}"`, JSON.stringify(req.headers));
+	console.log(`[${new Date().toLocaleString()}]`, '📥', req.socket.remoteAddress, `"${req.method} ${req.url} HTTP/${req.httpVersion}"`, JSON.stringify(req.headers));
 	res.on("finish", () => {
 		console.log(`[${new Date().toLocaleString()}]`, '📤', res.statusCode, res.statusMessage, JSON.stringify(res.getHeaders()));
 	});
