@@ -37,7 +37,7 @@ app.post("/upload", (req, res, next) => {
 		} catch(e) {
 			return next(e);
 		}
-		res.send(`${req.protocol}://${filecode}.${req.headers.host}`);
+		res.send(`${req.protocol}://${filecode}.${process.env.PREFERRED_HOST||req.headers.host}`);
 	});
 });
 

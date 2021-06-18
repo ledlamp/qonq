@@ -6,7 +6,8 @@ module.exports = {
 			"log_file": "qonq.log",
 			"env": {
 				"NODE_ENV": "production",
-				"ADDRESS": "127.0.0.1"
+				"ADDRESS": "127.0.0.1",
+				"PREFERRED_HOST": "owo69.me"
 			}
 		}
 	]
