@@ -1,4 +1,8 @@
-Note: Please refrain from using your own file server if you do not have a reliable long-term host, because all links you post will depend on your server and dead file servers cause link rot.
+# qonq
+
+Simple file host that puts the file code in the hostname. The leftmost part of the Host (i.e. `1234` of `1234.qonq.gq`) is used to serve a corresponding folder (i.e. `files/1234/`); if the folder contains one file then it is served directly, but if it contains multiple files then it is served as a webroot with a directory index. Designed for use as a ShareX Custom Uploader, but you can drop any lowercase alphanumeric folder into the files directory to serve it instantly.
+
+Note: Please refrain from using your own file server if you cannot commit to maintaining it indefinitely, because all links you post will depend on your server and dead servers cause link rot.
 
 ## Basic set up
 1. `git clone https://github.com/ledlamp/qonq.git`
@@ -25,11 +29,10 @@ You can set `PORT` and `ADDRESS` env variables if necessary.
 You can import this custom uploader config and modify the Request URL and authentication fields as necessary.
 
 ## How to get a domain
-You can get a free domain like qonq.gq from Freenom at http://dot.tk. But their DNS doesn't support wildcards so you'll need to use Cloudflare DNS (free) or any DNS server that supports wildcards.
-Just create a wildcard A record to the address of your server.
+You can get a free domain like qonq.gq from Freenom at http://dot.tk. But their DNS doesn't support wildcards so you'll need to use one that does, such as LuaDNS. Just create a wildcard A record to the address of your host.
 
 ## How to enable TLS
-You can use [Certbot](https://certbot.eff.org/) with one of the [DNS plugins](https://certbot.eff.org/docs/using.html#dns-plugins) to obtain wildcard certificates. You'll probably want to use this server with an nginx reverse proxy and configure the SSL stuff there, but you could also modify this server for https instead.
+You can use [Certbot](https://certbot.eff.org/) with one of the [DNS plugins](https://certbot.eff.org/docs/using.html#dns-plugins) to obtain wildcard certificates. LuaDNS is the only free option if you're using a free domain. You'll probably want to use an nginx reverse proxy and configure the SSL stuff there, but you could also modify this server for https instead.
 
 ## Nginx config example
 ```
