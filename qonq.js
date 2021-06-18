@@ -30,7 +30,7 @@ app.post("/upload", (req, res, next) => {
 		if (!file) return res.sendStatus(400);
 		do {
 			var filecode = Math.random().toString(36).slice(2).substring(0,4);
-		} while (fs.existsSync(path.join(FILES_DIR, filecode)));
+		} while ( fs.existsSync(path.join(FILES_DIR, filecode)) && !console.log("oof") );
 		try {
 			fs.mkdirSync(path.join(FILES_DIR, filecode));
 			fs.renameSync(file.path, path.join(FILES_DIR, filecode, file.name));
