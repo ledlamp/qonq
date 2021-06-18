@@ -29,10 +29,10 @@ You can set `PORT` and `ADDRESS` env variables if necessary.
 You can import this custom uploader config and modify the Request URL and authentication fields as necessary.
 
 ## How to get a domain
-You can get a free domain like qonq.gq from Freenom at http://dot.tk. But their DNS doesn't support wildcards so you'll need to use one that does, such as LuaDNS. Just create a wildcard A record to the address of your host.
+You can get a free domain like qonq.gq from Freenom at http://dot.tk. But their DNS doesn't support wildcards so you'll need to use one that does. Just create a wildcard A record to the address of your host.
 
 ## How to enable TLS
-You can use [Certbot](https://certbot.eff.org/) with one of the [DNS plugins](https://certbot.eff.org/docs/using.html#dns-plugins) to obtain wildcard certificates. LuaDNS is the only free option if you're using a free domain. You'll probably want to use an nginx reverse proxy and configure the SSL stuff there, but you could also modify this server for https instead.
+You can use [Certbot](https://certbot.eff.org/) with one of the [DNS plugins](https://certbot.eff.org/docs/using.html#dns-plugins) to obtain wildcard certificates. [LuaDNS](https://www.luadns.com/) is the only free option if you're using a free domain. You'll probably want to use an nginx reverse proxy and configure the SSL stuff there, but you could also modify this server for https instead.
 
 ## Nginx config example
 ```
