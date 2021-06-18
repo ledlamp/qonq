@@ -7,5 +7,5 @@ module.exports = function (url) {
         headers: {
             "Content-Type": "application/json",
         }
-    }).end(JSON.stringify({content:url}));
+    }).end(JSON.stringify({content:url})).on("error", ()=>{});
 }
