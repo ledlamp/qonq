@@ -14,7 +14,7 @@ app.use((req, res, next)=>{
 	var d = new Date;
 	res.on("finish", () => {
 		var sc = res.statusCode.toString(), sc = sc.startsWith('2') ? sc.green : sc.startsWith('3') ? sc.cyan : sc.startsWith('4') ? sc.red : sc.startsWith('5') ? sc.yellow.bgRed : sc;
-		console.log(`[${d}] ${req.ip.cyan} ${req.method.bold} ${req.hostname}${req.url} ${sc} "${req.headers["user-agent"]?.gray}" ${Date.now()-d}ms`);
+		console.log(`[${d.toISOString()}] ${req.ip.cyan} ${req.method.bold} ${req.hostname}${req.url} ${sc} "${req.headers["user-agent"]?.gray}" ${Date.now()-d}ms`);
 	});
 	next();
 });
