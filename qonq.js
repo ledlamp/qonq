@@ -1,3 +1,4 @@
+var colors = require("colors");
 var express = require("express");
 var formidable = require("formidable");
 var serveIndex = require("serve-index");
@@ -10,9 +11,10 @@ var app = express();
 app.enable('trust proxy', '127.0.0.1');
 
 app.use((req, res, next)=>{
-	console.log(`[${new Date().toLocaleString()}]`, '📥', req.socket.remoteAddress, `"${req.method} ${req.url} HTTP/${req.httpVersion}"`, JSON.stringify(req.headers));
+	var d = new Date;
 	res.on("finish", () => {
-		console.log(`[${new Date().toLocaleString()}]`, '📤', res.statusCode, res.statusMessage, JSON.stringify(res.getHeaders()));
+		var sc = res.statusCode.toString(), sc = sc.startsWith('2') ? sc.green : sc.startsWith('3') ? sc.cyan : sc.startsWith('4') ? sc.red : sc.startsWith('5') ? sc.yellow.bgRed : sc;
+		console.log(`[${d}] ${req.ip.cyan} ${req.method.bold} ${req.hostname}${req.url} ${sc} "${req.headers["user-agent"]?.gray}" ${Date.now()-d}ms`);
 	});
 	next();
 });
